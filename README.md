@@ -2,6 +2,13 @@
 
 Work in progress. Run order, commands and expected outputs are added as each script lands.
 
+## Deliverables
+- Governance memo: `docs/CST620_Week7_Governance_Memo.docx`
+- Working system: `src/`, `eval_config.yaml`, `splits/`, `results/` (test run 2026-10-26, frozen by `results/freeze.json`)
+- Report notebook: `report.ipynb` (reads only `results/` and `docs/`, executed with outputs)
+- Write-ups: `docs/curation_log.md`, `docs/leakage_audit.md`, `docs/failure_report.md`, `docs/challenges.md`
+- Walkthrough video: submitted through the LMS dropbox, not in this repo
+
 ## Run order (PowerShell, project root, seed 42)
 ```powershell
 .\.venv\Scripts\Activate.ps1
