@@ -1,6 +1,6 @@
 # CST 620 Week 7: PatchCore QC system
 
-Work in progress. Run order, commands and expected outputs are added as each script lands.
+Complete: single locked test run 2026-10-26.
 
 ## Deliverables
 - Governance memo: `docs/CST620_Week7_Governance_Memo.docx`
