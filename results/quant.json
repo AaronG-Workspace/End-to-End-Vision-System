@@ -1,0 +1,65 @@
+{
+ "calibration": "splits/calib.csv, 50 images",
+ "selection": "lower mean |int8 - fp32.onnx| feature difference on val (21 images)",
+ "settings": {
+  "quant_format": "QDQ",
+  "per_channel": "True",
+  "activation_type": "QUInt8",
+  "weight_type": "QInt8",
+  "reduce_range": "False",
+  "ActivationSymmetric": false,
+  "WeightSymmetric": true,
+  "opset": 17
+ },
+ "methods": {
+  "minmax": {
+   "mean_abs_diff": 0.0070204222574830055,
+   "cos_mean": 0.9986553192138672,
+   "cos_min": 0.9925597906112671
+  },
+  "percentile": {
+   "mean_abs_diff": 0.006590386852622032,
+   "cos_mean": 0.9988200068473816,
+   "cos_min": 0.9956462383270264
+  }
+ },
+ "picked": "percentile",
+ "parity_fp32_onnx_vs_pytorch_max_abs_diff": 5.364418029785156e-06,
+ "verification": {
+  "QuantizeLinear": 27,
+  "DequantizeLinear": 57,
+  "conv_int8_weights": 15,
+  "conv_total": 15,
+  "runtime_QLinearConv": 15,
+  "runtime_float_conv": 0,
+  "output_producer": "DequantizeLinear"
+ },
+ "val_scores": {
+  "fp32 (onnx)": {
+   "min": 0.9739026427268982,
+   "mean": 1.151387095451355,
+   "max": 1.2792223691940308
+  },
+  "int8": {
+   "min": 0.9799959063529968,
+   "mean": 1.1606740951538086,
+   "max": 1.3339486122131348
+  }
+ },
+ "size_mb": {
+  "fp32.onnx": 10.615206718444824,
+  "int8.onnx": 2.7209653854370117,
+  "bank_fp32.npy": 21.5904541015625,
+  "bank_int8.npy": 21.5904541015625
+ },
+ "sha256": {
+  "fp32.onnx": "d734a37e85ef11ad7238704b370e4c924e528a870722067bbbdc1492abf232c5",
+  "int8.onnx": "2ce6783ba3af4baf7e53c9188de38c80afd36b0b5c45ae12f89e40cad5b7ce43",
+  "bank_int8.npy": "ddba3edf8e661413447e2fdb20c94cc982359f8b7c458431efc669e6cdfa177b"
+ },
+ "versions": {
+  "torch": "2.14.1+cpu",
+  "onnxruntime": "1.31.0",
+  "onnx": "1.23.2"
+ }
+}

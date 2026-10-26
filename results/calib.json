@@ -1,0 +1,145 @@
+{
+ "split": "val only (21 normals); test never read",
+ "synthetic": {
+  "cutpaste": "24-56 px square from a different val normal, rotated uniform 0-360 deg, pasted at a random spot through a rotated mask",
+  "blob": "soft-edged ellipse, radii 4-10 px, darkened 60-90%, center 16 px or more from the border",
+  "seed": 42
+ },
+ "rule": "defect if score > threshold",
+ "threshold_selection": "f1_optimal = best F1 among midpoints of consecutive distinct val scores, ties to the lower cut; max_val_normal = highest val normal score",
+ "primary": "f1_optimal",
+ "thresholds": {
+  "fp32": {
+   "f1_optimal": 1.629166841506958,
+   "max_val_normal": 1.2792223691940308
+  },
+  "int8": {
+   "f1_optimal": 1.6646771430969238,
+   "max_val_normal": 1.3339486122131348
+  }
+ },
+ "variants": {
+  "fp32": {
+   "auroc": 1.0,
+   "separated": true,
+   "scores": {
+    "normal": {
+     "min": 0.9739046096801758,
+     "mean": 1.1513874105044775,
+     "max": 1.2792223691940308
+    },
+    "cutpaste": {
+     "min": 2.0712170600891113,
+     "mean": 3.4560042790004184,
+     "max": 4.447178840637207
+    },
+    "blob": {
+     "min": 1.9791113138198853,
+     "mean": 3.022549271583557,
+     "max": 4.468202114105225
+    }
+   },
+   "f1_optimal": {
+    "threshold": 1.629166841506958,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "tp": 42,
+    "fp": 0,
+    "fn": 0,
+    "tn": 21,
+    "recall_by_type": {
+     "cutpaste": [
+      21,
+      21
+     ],
+     "blob": [
+      21,
+      21
+     ]
+    }
+   },
+   "max_val_normal": {
+    "threshold": 1.2792223691940308,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "tp": 42,
+    "fp": 0,
+    "fn": 0,
+    "tn": 21,
+    "recall_by_type": {
+     "cutpaste": [
+      21,
+      21
+     ],
+     "blob": [
+      21,
+      21
+     ]
+    }
+   }
+  },
+  "int8": {
+   "auroc": 1.0,
+   "separated": true,
+   "scores": {
+    "normal": {
+     "min": 0.9799959063529968,
+     "mean": 1.1606741604350863,
+     "max": 1.3339486122131348
+    },
+    "cutpaste": {
+     "min": 2.1024951934814453,
+     "mean": 3.4317832447233654,
+     "max": 4.420275688171387
+    },
+    "blob": {
+     "min": 1.995405673980713,
+     "mean": 2.9416464396885464,
+     "max": 4.312864303588867
+    }
+   },
+   "f1_optimal": {
+    "threshold": 1.6646771430969238,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "tp": 42,
+    "fp": 0,
+    "fn": 0,
+    "tn": 21,
+    "recall_by_type": {
+     "cutpaste": [
+      21,
+      21
+     ],
+     "blob": [
+      21,
+      21
+     ]
+    }
+   },
+   "max_val_normal": {
+    "threshold": 1.3339486122131348,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "tp": 42,
+    "fp": 0,
+    "fn": 0,
+    "tn": 21,
+    "recall_by_type": {
+     "cutpaste": [
+      21,
+      21
+     ],
+     "blob": [
+      21,
+      21
+     ]
+    }
+   }
+  }
+ }
+}

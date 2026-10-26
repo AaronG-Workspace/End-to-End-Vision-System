@@ -5,8 +5,8 @@ coreset_ratio: 0.1
 min_auroc: 0.85
 variants: [fp32, int8]
 thresholds:                 # f1_optimal is the operating threshold; max_val_normal is the alternative estimator
-  fp32: {f1_optimal: null, max_val_normal: null}
-  int8: {f1_optimal: null, max_val_normal: null}
+  fp32: {f1_optimal: 1.629166841506958, max_val_normal: 1.2792223691940308}
+  int8: {f1_optimal: 1.6646771430969238, max_val_normal: 1.3339486122131348}
 eps_grid: [0, 0.005, 0.01, 0.015, 0.02, 0.03, 0.05]   # L-infinity on the 0 to 1 pixel scale (FGSM, random-sign noise)
 pgd:
   eps: [0.005, 0.01, 0.02]

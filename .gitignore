@@ -2,3 +2,5 @@
 data/
 reuse/
 __pycache__/
+results/*.npy
+results/*.onnx
