@@ -4,7 +4,7 @@ Produced by `python -m src.data` (seed 42). Splits are in `splits/`. `splits/man
 
 ## Source and license
 - Dataset: MVTec AD, category `bottle` (Bergmann et al., "MVTec AD: A Comprehensive Real-World Dataset for Unsupervised Anomaly Detection", CVPR 2019).
-- Obtained from a third-party mirror (URL: TODO Tom). Stored read-only at `data/mvtec/bottle`, not committed to git.
+- Obtained from a third-party mirror, https://huggingface.co/datasets/aristrops/mvtec-concepts (bottle train, test, ground_truth only). Stored read-only at `data/mvtec/bottle`, not committed to git.
 - License: CC BY-NC-SA 4.0, so non-commercial use only. This project is coursework. A commercial MedVision deployment would need the manufacturer's own images under its own terms.
 
 ## Why bottle
