@@ -89,7 +89,7 @@ def write_thresholds(thresholds):
     CONFIG_PATH.write_text(text, encoding="utf-8", newline="\n")   # LF: freeze.py hashes this file
 
 
-def save_grid(synth, boxes, fp32, t):
+def save_grid(synth, boxes, fp32, primary, t):
     """4x4 grid for the video: two rows of CutPaste, two rows of dark blobs, red box on the synthetic region."""
     fig, axes = plt.subplots(4, 4, figsize=(10, 10.6))
     for k, ax in enumerate(axes.flat):
@@ -100,7 +100,8 @@ def save_grid(synth, boxes, fp32, t):
         ax.set_title(f"{kind} (val {i})  score {fp32[kind][i]:.3f}", fontsize=9)
         ax.axis("off")
     fig.suptitle(f"Synthetic defects made from val normals only. Red box = synthetic region.\n"
-                 f"FP32 image score; F1-optimal FP32 threshold {t:.3f} (defect if score > threshold)", fontsize=11)
+                 f"FP32 image score; primary FP32 threshold ({primary}) {t:.3f}, defect if score > threshold",
+                 fontsize=11)
     fig.tight_layout()
     fig.savefig(GRID, dpi=120)
     plt.close(fig)
@@ -157,12 +158,13 @@ def main():
             print(f"note: {variant} val is perfectly separated; F1-optimal = midpoint of max normal and min synthetic")
 
     write_thresholds(thresholds)
-    print("\neval_config.yaml: wrote 4 threshold values (primary = f1_optimal); every other setting unchanged (asserted)")
+    primary = yaml.safe_load(CONFIG_PATH.read_text(encoding="utf-8"))["primary_threshold"]
+    print(f"\neval_config.yaml: wrote 4 threshold values (primary = {primary}); every other setting unchanged (asserted)")
     for variant, t in thresholds.items():
         print(f"  {variant}: f1_optimal {t['f1_optimal']!r}, max_val_normal {t['max_val_normal']!r}")
 
     s = all_scores["fp32"]
-    save_grid(synth, boxes, {k: s[kinds == k] for k in KINDS}, thresholds["fp32"]["f1_optimal"])
+    save_grid(synth, boxes, {k: s[kinds == k] for k in KINDS}, primary, thresholds["fp32"][primary])
     LOG.write_text(json.dumps({
         "split": "val only (21 normals); test never read",
         "synthetic": {"cutpaste": "24-56 px square from a different val normal, rotated uniform 0-360 deg, pasted at a "
@@ -171,7 +173,7 @@ def main():
         "rule": "defect if score > threshold",
         "threshold_selection": "f1_optimal = best F1 among midpoints of consecutive distinct val scores, ties to the "
                                "lower cut; max_val_normal = highest val normal score",
-        "primary": "f1_optimal",
+        "primary": primary,
         "thresholds": thresholds,
         "variants": results,
     }, indent=1) + "\n", encoding="utf-8")

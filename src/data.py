@@ -66,7 +66,7 @@ def write(splits):
     for name, df in splits.items():
         df.to_csv(SPLITS / f"{name}.csv", index=False, lineterminator="\n")
     manifest = {f"{name}.csv": sha256_of(SPLITS / f"{name}.csv") for name in NAMES}
-    MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")   # LF: freeze.py hashes it
     return manifest
 
 

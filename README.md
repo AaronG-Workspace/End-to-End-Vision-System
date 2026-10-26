@@ -9,6 +9,11 @@ python -m src.data          # splits/*.csv, splits/manifest.json (re-runs verify
 python -m src.patchcore     # results/bank_fp32.npy, smoke test on val
 python -m src.quantize      # results/fp32.onnx, int8.onnx, bank_int8.npy, quant.json (INT8 checks, val only)
 python -m src.calibrate     # thresholds into eval_config.yaml, results/calib.json, synth_grid.png (val only)
+python -m src.bench --notes "plugged in, Zoom closed"   # results/bench.json, bench.md (~4 min, one val image)
+python -m src.attack        # attack smoke test and timing on val; writes pgd.restarts to eval_config.yaml
+python -m src.eval --dry-run   # eval's exact code path on val + synthetic defects -> results/dryrun/ (~5 min)
+python -m src.freeze        # results/freeze.json: sha256 of the 11 files eval.py depends on
+python -m src.eval          # test, once (~12 min); refuses on any freeze mismatch or if results/.scored exists
 ```
 
 ## Not in git

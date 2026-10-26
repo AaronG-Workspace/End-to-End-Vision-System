@@ -1,0 +1,70 @@
+{
+ "date": "2026-10-25",
+ "cpu": "Intel(R) Core(TM) Ultra 7 155U",
+ "logical_cores": 14,
+ "os": "Windows-11-10.0.26200-SP0",
+ "runtime": "ONNX Runtime 1.31.0 CPUExecutionProvider, graph optimization ORT_ENABLE_ALL",
+ "intra_op_threads": 4,
+ "inter_op_threads": 1,
+ "torch_threads_nn": 4,
+ "batch": 1,
+ "image": "data/mvtec/bottle/train/good/007.png",
+ "warmup_per_variant": 50,
+ "timed_runs_per_variant": 1000,
+ "schedule": "interleaved, order alternated",
+ "timer": "perf_counter_ns; extractor = sess.run, nn = nn_score (torch.cdist to bank, min, max), total = sum",
+ "size": "MB = 2^20 bytes; ONNX file + bank file",
+ "versions": {
+  "onnxruntime": "1.31.0",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "python": "3.12.12"
+ },
+ "notes": "plugged in, Zoom/Teams/browsers closed, VS Code with Claude Code running",
+ "variants": {
+  "fp32": {
+   "extractor": {
+    "p50": 14.446,
+    "p95": 18.072,
+    "p99": 18.992
+   },
+   "nn": {
+    "p50": 79.875,
+    "p95": 98.213,
+    "p99": 102.701
+   },
+   "total": {
+    "p50": 95.239,
+    "p95": 113.998,
+    "p99": 119.051
+   },
+   "size_mb": {
+    "onnx": 10.62,
+    "bank": 21.59,
+    "total": 32.21
+   }
+  },
+  "int8": {
+   "extractor": {
+    "p50": 6.74,
+    "p95": 8.07,
+    "p99": 8.632
+   },
+   "nn": {
+    "p50": 77.792,
+    "p95": 91.427,
+    "p99": 99.464
+   },
+   "total": {
+    "p50": 84.557,
+    "p95": 98.143,
+    "p99": 106.807
+   },
+   "size_mb": {
+    "onnx": 2.72,
+    "bank": 21.59,
+    "total": 24.31
+   }
+  }
+ }
+}

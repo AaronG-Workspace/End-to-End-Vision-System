@@ -7,7 +7,7 @@
  },
  "rule": "defect if score > threshold",
  "threshold_selection": "f1_optimal = best F1 among midpoints of consecutive distinct val scores, ties to the lower cut; max_val_normal = highest val normal score",
- "primary": "f1_optimal",
+ "primary": "max_val_normal",
  "thresholds": {
   "fp32": {
    "f1_optimal": 1.629166841506958,

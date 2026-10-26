@@ -1,0 +1,17 @@
+{
+ "frozen_at_utc": "2026-10-26 19:42:43 UTC",
+ "rule": "src/eval.py recomputes every sha256 below (and the split CSVs against splits/manifest.json) and refuses to open test on any mismatch",
+ "sha256": {
+  "eval_config.yaml": "ac4db61756c73d4c949c6a1b673aedd111392417a1634f051ce48b2105c250cf",
+  "src/data.py": "561e9064634d342c7bf3bf578040dbfd29cbf58911e185d3a19ecc98c10c836f",
+  "src/patchcore.py": "ae6067ca830decb282615353e0b0612635d02f6402b67034a2e27c3d827f3a4d",
+  "src/attack.py": "d2234dcd3c9a8a94f589b7e9cac412ec4b329d6cf0142dcae241b8667c2e58f2",
+  "src/eval.py": "80dc9f3cd256c51966c0b8a47b13118c9843c419844181a33c7c5920d53422f2",
+  "splits/manifest.json": "1dbe64dfac94602d2d2b55061b65407f048a89be5b0cf3ab7f16535fb1741244",
+  "results/bank_fp32.npy": "b75ff119426420dc68a30df66f5af6d629d591905de3eb202f98c15f6a47503c",
+  "results/bank_int8.npy": "ddba3edf8e661413447e2fdb20c94cc982359f8b7c458431efc669e6cdfa177b",
+  "results/fp32.onnx": "d734a37e85ef11ad7238704b370e4c924e528a870722067bbbdc1492abf232c5",
+  "results/int8.onnx": "2ce6783ba3af4baf7e53c9188de38c80afd36b0b5c45ae12f89e40cad5b7ce43",
+  "results/bench.json": "e0726aee40c940570e3d6cbf832e08493bed5e1f5488ffbd40767a3623780812"
+ }
+}
