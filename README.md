@@ -14,6 +14,7 @@ python -m src.attack        # attack smoke test and timing on val; writes pgd.re
 python -m src.eval --dry-run   # eval's exact code path on val + synthetic defects -> results/dryrun/ (~5 min)
 python -m src.freeze        # results/freeze.json: sha256 of the 11 files eval.py depends on
 python -m src.eval          # test, once (~12 min); refuses on any freeze mismatch or if results/.scored exists
+jupyter nbconvert --to notebook --execute --inplace report.ipynb   # report from results/ and docs/ only
 ```
 
 ## Not in git
