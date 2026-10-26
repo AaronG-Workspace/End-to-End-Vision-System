@@ -1,0 +1,111 @@
+D:\cst620_week7\src\eval.py:227: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\torch\csrc\utils\tensor_numpy.cpp:219.)
+  batches = [(x[i:i + B], torch.from_numpy(labels[i:i + B])) for i in range(0, len(x), B)]
+freeze OK: 11 files match results/freeze.json; 4 split CSVs match the manifest
+test: 83 images (20 good, 63 defect); primary threshold max_val_normal
+FP32 torch vs FP32 ONNX clean scores: max |diff| 5.01e-06 (< 1e-4)
+
+clean, rule: defect if score > threshold; 95% CI = stratified bootstrap, 1000 resamples, seed 42
+  fp32 max_val_normal (primary) t 1.2792  AUROC 1.0000 [1.0000, 1.0000]  AP 1.0000  P 0.940 (63/67)  R 1.000 (63/63) [1.000, 1.000]  F1 0.969  FPR 0.200 (4/20)  TP 63 FP 4 FN 0 TN 16
+      recall by type: broken_large 20/20, broken_small 22/22, contamination 21/21
+  fp32 f1_optimal     (alternative) t 1.6292  AUROC 1.0000 [1.0000, 1.0000]  AP 1.0000  P 1.000 (63/63)  R 1.000 (63/63)  F1 1.000  FPR 0.000 (0/20)  TP 63 FP 0 FN 0 TN 20
+      recall by type: broken_large 20/20, broken_small 22/22, contamination 21/21
+  int8 max_val_normal (primary) t 1.3339  AUROC 1.0000 [1.0000, 1.0000]  AP 1.0000  P 0.955 (63/66)  R 1.000 (63/63) [1.000, 1.000]  F1 0.977  FPR 0.150 (3/20)  TP 63 FP 3 FN 0 TN 17
+      recall by type: broken_large 20/20, broken_small 22/22, contamination 21/21
+  int8 f1_optimal     (alternative) t 1.6647  AUROC 1.0000 [1.0000, 1.0000]  AP 1.0000  P 1.000 (63/63)  R 1.000 (63/63)  F1 1.000  FPR 0.000 (0/20)  TP 63 FP 0 FN 0 TN 20
+      recall by type: broken_large 20/20, broken_small 22/22, contamination 21/21
+
+attacks on FP32 torch, two-sided, L-infinity on 0 to 1 pixels, batches of 4; at threshold 1.2792
+  FGSM                                                    eps 0      AUROC 1.0000 (escape 1.0000, false alarm 1.0000)  recall 1.000 (63/63)  FPR 0.200 (4/20)  new escapes 0  new false alarms 0  (20 s)
+  FGSM                                                    eps 0.005  AUROC 0.9500 (escape 1.0000, false alarm 0.9857)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (19 s)
+  FGSM                                                    eps 0.01   AUROC 0.8905 (escape 1.0000, false alarm 0.9389)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (18 s)
+  FGSM                                                    eps 0.015  AUROC 0.8690 (escape 1.0000, false alarm 0.9135)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (18 s)
+  FGSM                                                    eps 0.02   AUROC 0.8659 (escape 1.0000, false alarm 0.8857)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (18 s)
+  FGSM                                                    eps 0.03   AUROC 0.8206 (escape 1.0000, false alarm 0.8206)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (19 s)
+  FGSM                                                    eps 0.05   AUROC 0.7095 (escape 1.0000, false alarm 0.6024)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (20 s)
+  PGD 10 steps, alpha 0.25 x eps, 1 restart, random start eps 0.005  AUROC 0.1905 (escape 0.9960, false alarm 0.4786)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (147 s)
+  PGD 10 steps, alpha 0.25 x eps, 1 restart, random start eps 0.01   AUROC 0.0000 (escape 1.0000, false alarm 0.0111)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (154 s)
+  PGD 10 steps, alpha 0.25 x eps, 1 restart, random start eps 0.02   AUROC 0.0000 (escape 1.0000, false alarm 0.0000)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (158 s)
+  random-sign noise                                       eps 0      AUROC 1.0000 (escape 1.0000, false alarm 1.0000)  recall 1.000 (63/63)  FPR 0.200 (4/20)  new escapes 0  new false alarms 0  (5 s)
+  random-sign noise                                       eps 0.005  AUROC 1.0000 (escape 1.0000, false alarm 1.0000)  recall 1.000 (63/63)  FPR 0.200 (4/20)  new escapes 0  new false alarms 0  (5 s)
+  random-sign noise                                       eps 0.01   AUROC 1.0000 (escape 1.0000, false alarm 1.0000)  recall 1.000 (63/63)  FPR 0.300 (6/20)  new escapes 0  new false alarms 2  (5 s)
+  random-sign noise                                       eps 0.015  AUROC 0.9992 (escape 1.0000, false alarm 1.0000)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (5 s)
+  random-sign noise                                       eps 0.02   AUROC 0.9968 (escape 1.0000, false alarm 0.9984)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (5 s)
+  random-sign noise                                       eps 0.03   AUROC 0.9960 (escape 1.0000, false alarm 0.9786)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (5 s)
+  random-sign noise                                       eps 0.05   AUROC 0.9730 (escape 1.0000, false alarm 0.9190)  recall 1.000 (63/63)  FPR 1.000 (20/20)  new escapes 0  new false alarms 16  (5 s)
+
+sanity checks (results/sanity.txt)
+  damage (checks 3 and 5) = mean over images of the score shift toward the attacker's goal (+ for good images pushed up, + for defects pushed down)
+  check 4 = drop in two-sided AUROC from clean (1.0000); its cutoff was revised after the val dry run, before freeze (docs/failure_report.md)
+  1 PASS  eps 0 reproduces clean scores exactly: {'fgsm': True, 'random_sign': True}
+  2 PASS  max |x_adv - x| <= eps + 1e-6 for every attack x eps (largest excess: fgsm eps 0.005, +2.51e-08); pixels in [0.0598, 1.0000]
+  3 FAIL  damage grows with eps: FGSM [0: 0.0000, 0.005: 0.4333, 0.01: 0.5062, 0.015: 0.5071, 0.02: 0.4879, 0.03: 0.4521, 0.05: 0.3812]; PGD [0: 0.0000, 0.005: 1.0287, 0.01: 1.6043, 0.02: 2.1223]
+  4 PASS  random-sign AUROC drop <= 0.25 x FGSM AUROC drop, or <= 0.01: eps 0.005 drop 0.0000 vs 0.0500 (score shift, info only: 0.0083 vs 0.4333), eps 0.01 drop 0.0000 vs 0.1095 (score shift, info only: 0.0317 vs 0.5062), eps 0.015 drop 0.0008 vs 0.1310 (score shift, info only: 0.0768 vs 0.5071), eps 0.02 drop 0.0032 vs 0.1341 (score shift, info only: 0.1200 vs 0.4879), eps 0.03 drop 0.0040 vs 0.1794 (score shift, info only: 0.1731 vs 0.4521), eps 0.05 drop 0.0270 vs 0.2905 (score shift, info only: 0.2305 vs 0.3812)
+  5 PASS  PGD damage >= FGSM damage: eps 0.005 PGD 1.0287 vs FGSM 0.4333, eps 0.01 PGD 1.6043 vs FGSM 0.5062, eps 0.02 PGD 2.1223 vs FGSM 0.4879
+
+first eps where each AUROC < 0.85 (frozen minimum), and attack-caused flips at max_val_normal 1.2792
+  FGSM:
+    two-sided AUROC: first below 0.85 at eps 0.03
+    escape AUROC: stayed >= 0.85 at every eps tested, up to 0.05
+    false-alarm AUROC: first below 0.85 at eps 0.03
+    escapes: no successful escape found up to eps 0.05 with FGSM
+    false alarms: first successful false alarm at eps 0.005 (16 images)
+  PGD 10 steps, alpha 0.25 x eps, 1 restart, random start:
+    two-sided AUROC: first below 0.85 at eps 0.005
+    escape AUROC: stayed >= 0.85 at every eps tested, up to 0.02
+    false-alarm AUROC: first below 0.85 at eps 0.005
+    escapes: no successful escape found up to eps 0.02 with PGD 10 steps, alpha 0.25 x eps, 1 restart, random start
+    false alarms: first successful false alarm at eps 0.005 (16 images)
+  random-sign noise:
+    two-sided AUROC: stayed >= 0.85 at every eps tested, up to 0.05
+    escape AUROC: stayed >= 0.85 at every eps tested, up to 0.05
+    false-alarm AUROC: stayed >= 0.85 at every eps tested, up to 0.05
+    escapes: no successful escape found up to eps 0.05 with random-sign noise
+    false alarms: first successful false alarm at eps 0.01 (2 images)
+
+| variant | AUROC | AP | F1 | recall | p50 ms | p95 ms | size MB |
+|---|---|---|---|---|---|---|---|
+| fp32 | 1.0000 | 1.0000 | 0.969 | 1.000 (63/63) | 95.24 | 114.00 | 32.21 |
+| int8 | 1.0000 | 1.0000 | 0.977 | 1.000 (63/63) | 84.56 | 98.14 | 24.31 |
+
+wrote 39 files in 647 s:
+  results/attack.csv
+  results/attack_scores.csv
+  results/bank_fp32.npy
+  results/bank_int8.npy
+  results/bench.json
+  results/bench.md
+  results/calib.json
+  results/clean.csv
+  results/clean_scores.csv
+  results/degradation_curve.png
+  results/dryrun/attack.csv
+  results/dryrun/attack_scores.csv
+  results/dryrun/clean.csv
+  results/dryrun/clean_scores.csv
+  results/dryrun/degradation_curve.png
+  results/dryrun/misses/pgd001_low1_blob_101.png
+  results/dryrun/misses/pgd001_low2_blob_007.png
+  results/dryrun/misses/pgd001_low3_blob_054.png
+  results/dryrun/pr_curve.png
+  results/dryrun/sanity.txt
+  results/dryrun/tradeoff.csv
+  results/dryrun/tradeoff.md
+  results/eval_log.txt
+  results/fp32.onnx
+  results/freeze.json
+  results/int8.onnx
+  results/misses/fp_good_001.png
+  results/misses/fp_good_002.png
+  results/misses/fp_good_009.png
+  results/misses/fp_good_015.png
+  results/misses/pgd001_low1_contamination_003.png
+  results/misses/pgd001_low2_contamination_019.png
+  results/misses/pgd001_low3_contamination_004.png
+  results/pr_curve.png
+  results/quant.json
+  results/sanity.txt
+  results/synth_grid.png
+  results/tradeoff.csv
+  results/tradeoff.md
+
+docs/leakage_audit.md: start and end logged; results/.scored written

@@ -1,0 +1,9 @@
+Sanity checks, test, attacks on FP32 torch
+damage (checks 3 and 5) = mean over images of the score shift toward the attacker's goal (+ for good images pushed up, + for defects pushed down)
+check 4 = drop in two-sided AUROC from clean (1.0000); its cutoff was revised after the val dry run, before freeze (docs/failure_report.md)
+
+1 PASS  eps 0 reproduces clean scores exactly: {'fgsm': True, 'random_sign': True}
+2 PASS  max |x_adv - x| <= eps + 1e-6 for every attack x eps (largest excess: fgsm eps 0.005, +2.51e-08); pixels in [0.0598, 1.0000]
+3 FAIL  damage grows with eps: FGSM [0: 0.0000, 0.005: 0.4333, 0.01: 0.5062, 0.015: 0.5071, 0.02: 0.4879, 0.03: 0.4521, 0.05: 0.3812]; PGD [0: 0.0000, 0.005: 1.0287, 0.01: 1.6043, 0.02: 2.1223]
+4 PASS  random-sign AUROC drop <= 0.25 x FGSM AUROC drop, or <= 0.01: eps 0.005 drop 0.0000 vs 0.0500 (score shift, info only: 0.0083 vs 0.4333), eps 0.01 drop 0.0000 vs 0.1095 (score shift, info only: 0.0317 vs 0.5062), eps 0.015 drop 0.0008 vs 0.1310 (score shift, info only: 0.0768 vs 0.5071), eps 0.02 drop 0.0032 vs 0.1341 (score shift, info only: 0.1200 vs 0.4879), eps 0.03 drop 0.0040 vs 0.1794 (score shift, info only: 0.1731 vs 0.4521), eps 0.05 drop 0.0270 vs 0.2905 (score shift, info only: 0.2305 vs 0.3812)
+5 PASS  PGD damage >= FGSM damage: eps 0.005 PGD 1.0287 vs FGSM 0.4333, eps 0.01 PGD 1.6043 vs FGSM 0.5062, eps 0.02 PGD 2.1223 vs FGSM 0.4879
