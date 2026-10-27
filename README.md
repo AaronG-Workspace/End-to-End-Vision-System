@@ -1,6 +1,6 @@
-# CST 620 Week 7: PatchCore QC system
+# End-to-End Vision System
 
-Complete: single locked test run 2026-10-26.
+CST 620 Week 7: PatchCore QC system. Complete: single locked test run 2026-10-26.
 
 ## Deliverables
 - Governance memo: submitted separately; the local file `docs/CST620_Week7_Governance_Memo.docx` is git-ignored
@@ -27,3 +27,4 @@ jupyter nbconvert --to notebook --execute --inplace report.ipynb   # report from
 ## Not in git
 - `results/*.npy` (memory banks) and `results/*.onnx` (exported models) are not committed. `results/freeze.json` records their SHA-256 values. The bank rebuild is deterministic: two runs of `python -m src.patchcore` produced the same `bank_fp32.npy` (sha256 `b75ff119426420dc68a30df66f5af6d629d591905de3eb202f98c15f6a47503c`). Two runs of `python -m src.quantize` also produced identical `fp32.onnx`, `int8.onnx` and `bank_int8.npy`. Anyone can regenerate these files with the commands above and check them against `results/freeze.json`. Use the same library versions: torch 2.14.1, torchvision 0.29.1, onnxruntime 1.31.0.
 - `data/` is not committed. MVTec AD is licensed CC BY-NC-SA 4.0. Place the bottle category at `data/mvtec/bottle`.
+- Attribution: the images in `results/` and `report.ipynb` are derived from MVTec AD (Bergmann et al., CVPR 2019 and IJCV 2021) and are shared under CC BY-NC-SA 4.0.
