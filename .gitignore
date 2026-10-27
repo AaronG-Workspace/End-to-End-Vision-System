@@ -4,3 +4,4 @@ reuse/
 __pycache__/
 results/*.npy
 results/*.onnx
+docs/CST620_Week7_Governance_Memo.docx

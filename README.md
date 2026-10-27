@@ -3,7 +3,7 @@
 Complete: single locked test run 2026-10-26.
 
 ## Deliverables
-- Governance memo: `docs/CST620_Week7_Governance_Memo.docx`
+- Governance memo: submitted separately; the local file `docs/CST620_Week7_Governance_Memo.docx` is git-ignored
 - Working system: `src/`, `eval_config.yaml`, `splits/`, `results/` (test run 2026-10-26, frozen by `results/freeze.json`)
 - Report notebook: `report.ipynb` (reads only `results/` and `docs/`, executed with outputs)
 - Write-ups: `docs/curation_log.md`, `docs/leakage_audit.md`, `docs/failure_report.md`, `docs/challenges.md`
